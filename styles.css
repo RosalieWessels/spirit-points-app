@@ -1,5 +1,11 @@
 h1 {
-  color: green;
+  color: #28a745;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+}
+
+.navbar-brand {
+  color: #28a745;
   font-family: 'Montserrat', sans-serif;
   font-weight: 700;
 }
