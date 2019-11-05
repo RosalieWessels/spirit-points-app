@@ -1,13 +1,22 @@
+/* Text Styling */
 h1 {
   color: #0a8334;
   font-family: 'Montserrat', sans-serif;
   font-weight: 700;
 }
 
+/* Basic layout */
 .fluid-container {
   margin: 2%;
 }
 
+/* Images/Icon styling */
 .fa-crown {
   color: #FFF400;
+}
+
+/* */
+
+.btn-group button{
+  background-color: #27a844;
 }
