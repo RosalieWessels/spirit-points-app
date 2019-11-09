@@ -20,3 +20,13 @@ h1 {
 .btn-group button{
   background-color: #27a844;
 }
+
+#middle-school{
+  width: 50%;
+}
+
+@media only screen and (max-width: 768px){
+  #middle-school{
+    width:100%;
+  }
+}
