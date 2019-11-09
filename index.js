@@ -12,3 +12,10 @@ document.getElementById("senior-points").textContent = senior_SP
 
 document.getElementById("m_7-points").textContent = m_7_SP
 document.getElementById("m_8-points").textContent = m_8_SP
+
+var modal = document.getElementById('login');
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}

@@ -75,7 +75,6 @@
         </div>
       </div>
 
-      <br></br>
 
       <h4>Middle School:</h4>
       <!--Card for Middle School-->
@@ -96,6 +95,22 @@
             <p class="card-text" id="m_8-points"></p>
           </div>
         </div>
+      </div>
+
+      <br></br>
+
+      <button onclick="document.getElementById('login').style.display='block'" type="button" class="btn btn-outline-success">Admin</button>
+      <div id="login" class = "modal">
+        <form class="modal-content animate" action="action_page.php" method="post">
+          <div class="container">
+            <label for="uname"><b>Enter Admin Code</b></label>
+            <input type="text" placeholder="admin-code" name="uname" required>
+            <button type="submit">Login</button>
+          </div>
+          <div class="container" style="background-color:#f1f1f1">
+            <button type="button" onclick="document.getElementById('login').style.display='none'" class="cancelbtn">Cancel</button>
+          </div>
+        </form>
       </div>
 
 
