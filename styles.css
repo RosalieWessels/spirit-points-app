@@ -19,6 +19,11 @@ h1 {
 
 .btn-group button{
   background-color: #27a844;
+  border: 1px solid #303030;
+}
+
+.btn:focus{
+  background-color:#0d8e2a;
 }
 
 #middle-school{
