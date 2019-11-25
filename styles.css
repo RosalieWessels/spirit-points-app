@@ -26,9 +26,14 @@ h1 {
   background-color:#0d8e2a;
 }
 
+
 #middle-school{
   width: 50%;
 }
+i{
+  float: left;
+}
+
 
 .modal {
   display: none;
