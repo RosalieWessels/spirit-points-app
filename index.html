@@ -101,7 +101,7 @@
 
       <button onclick="document.getElementById('login').style.display='block'" type="button" class="btn btn-outline-success">Admin</button>
       <div id="login" class = "modal">
-        <form class="modal-content animate" action="action_page.php" method="post">
+        <form name="myForm" class="modal-content animate" method="post">
           <div class="imgcontainer">
             <span onclick="document.getElementById('login').style.display='none'"class="close" title="Close Modal">&times;</span>
           </div>
@@ -110,8 +110,8 @@
             <label for="uname"><b>Username</b></label>
             <input type="text" placeholder="Username" name="uname" required>
             <label for="psw"><b>Password</b></label>
-            <input type="text" placeholder="admin-code" name="uname" required>
-            <button type="submit" id="login-button">Login</button>
+            <input type="text" placeholder="admin-code" name="password" required>
+            <button type="submit" id="login-button" onclick="validateForm()">Login</button>
           </div>
           <br/>
           <div class="container" style="background-color:#f1f1f1">

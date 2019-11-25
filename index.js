@@ -5,18 +5,12 @@ var junior_SP = 10;
 var senior_SP  =10;
 var m_8_SP  =10;
 var m_7_SP = 10;
+
 var greatest = Math.max(freshman_SP, sophomore_SP, junior_SP, senior_SP);
 var crowned;
 
-if(freshman_SP==greatest){
-  crowned="freshman"
-}
-else if (sophomore_SP==greatest) {
-  crowned="sophmore"
-}
-else if (junior_SP==greatest) {
-  crowned="junior"
-}
+var username = "something"
+var pw = "bla"
 
 //Sets the text content of the labels to the variable
 document.getElementById("freshman-points").textContent = freshman_SP;
@@ -35,6 +29,17 @@ window.onclick = function(event) {
     }
 }
 
+
+if(freshman_SP==greatest){
+  crowned="freshman"
+}
+else if (sophomore_SP==greatest) {
+  crowned="sophmore"
+}
+else if (junior_SP==greatest) {
+  crowned="junior"
+}
+
 if("freshman"==crowned){
   $("#fr-crown").addClass("fas fa-crown");
 }
@@ -46,4 +51,15 @@ else if("junior"==crowned) {
 }
 else{
   $("#se-crown").addClass("fas fa-crown");
+}
+
+function validateForm(){
+  var x = document.forms["myForm"]["uname"].value;
+  var y = document.forms["myForm"]["password"].value;
+  if(x==username && y == pw){
+    alert("Access granted")
+  }
+  else{
+    alert("Access denied")
+  }
 }
