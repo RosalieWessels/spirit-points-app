@@ -1,0 +1,14 @@
+.fluid-container {
+  padding: 1%;
+  background-color: #dddddd;
+  text-align: center;
+  width:40%;
+  margin: 10% auto;
+}
+
+#Points {
+  width:5%;
+}
+ #Additions{
+   padding: 0.5%
+ }

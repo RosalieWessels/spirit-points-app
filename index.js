@@ -98,6 +98,7 @@ function validateForm(){
   var y = document.forms["myForm"]["password"].value;
   if(x==username && y == pw){
     alert("Access granted")
+    window.open("admin-site/add_points.html", "_blank")
   }
   else{
     alert("Access denied")
