@@ -1,13 +1,12 @@
 //Variables to store the points in for all the grades
-var freshman_SP = [10, "Freshman"];
+var freshman_SP = [20, "Freshman"];
 var sophomore_SP = [30, "Sophmore"];
 var junior_SP = [20, "Junior"];
 var senior_SP  = [15, "Senior"];
-var m_8_SP  =10;
-var m_7_SP = 10;
+var m_8_SP  = [15, "8th Grade"];
+var m_7_SP = [10, "7th Grade"];
 
 var greatest = Math.max(freshman_SP[0], sophomore_SP[0], junior_SP[0], senior_SP[0]);
-var crowned;
 var username = "something"
 var pw = "bla"
 var all_grades = [freshman_SP, sophomore_SP, junior_SP, senior_SP];
@@ -16,12 +15,23 @@ var all_grades = [freshman_SP, sophomore_SP, junior_SP, senior_SP];
 function sort(toggle){
   if (toggle=="points"){
     all_grades.sort(sortFunction);
+    if (m_8_SP[0]>=m_7_SP[0]){
+      document.getElementById("m_1-points").textContent = m_8_SP[0]
+      document.getElementById("m_2-points").textContent = m_7_SP[0]
+      document.getElementById("m1").textContent = m_8_SP[1]
+      document.getElementById("m2").textContent = m_7_SP[1]
+    }
   }
   else{
     all_grades = [freshman_SP, sophomore_SP, junior_SP, senior_SP];
+    document.getElementById("m_1-points").textContent = m_7_SP[0]
+    document.getElementById("m_2-points").textContent = m_8_SP[0]
+    document.getElementById("m1").textContent = m_7_SP[1]
+    document.getElementById("m2").textContent = m_8_SP[1]
   }
   elementtext()
   crowning(all_grades, greatest)
+  return;
 }
 
 function sortFunction(a, b){
@@ -36,32 +46,22 @@ function sortFunction(a, b){
 document.getElementById("grades").onclick = function() {sort("grades")};
 document.getElementById("points").onclick = function() {sort("points")};
 
-//finds the best grade
+//gives crown
 function crowning(all_grades, greatest){
   $("#fi-crown").removeClass("fas fa-crown");
   $("#se-crown").removeClass("fas fa-crown");
   $("#th-crown").removeClass("fas fa-crown");
   $("#fo-crown").removeClass("fas fa-crown");
   if(all_grades[0][0]==greatest){
-    crowned="first"
-  }
-  else if (all_grades[1][0]==greatest) {
-    crowned="second"
-  }
-  else if (all_grades[2][0]==greatest) {
-    crowned= "third"
-  }
-//gives the grade with the most spirit points a crown
-  if(crowned=="first"){
     $("#fi-crown").addClass("fas fa-crown");
   }
-  else if (crowned=="second") {
+  if (all_grades[1][0]==greatest) {
     $("#se-crown").addClass("fas fa-crown");
   }
-  else if(crowned=="third") {
+  if (all_grades[2][0]==greatest) {
     $("#th-crown").addClass("fas fa-crown");
   }
-  else{
+  if (all_grades[3][0]==greatest){
     $("#fo-crown").addClass("fas fa-crown");
   }
 }
@@ -80,9 +80,10 @@ function elementtext(){
   document.getElementById("fourth").textContent = all_grades[3][1];
 }
 elementtext()
-
-document.getElementById("m_7-points").textContent = m_7_SP
-document.getElementById("m_8-points").textContent = m_8_SP
+document.getElementById("m_1-points").textContent = m_7_SP[0]
+document.getElementById("m_2-points").textContent = m_8_SP[0]
+document.getElementById("m1").textContent = m_7_SP[1]
+document.getElementById("m2").textContent = m_8_SP[1]
 
 //Admin Alert
 var modal = document.getElementById('login');
