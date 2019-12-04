@@ -29,6 +29,7 @@ if (user) {
 else {
   console.log("not logged in");
 }
+*/
 
 if (localStorage.getItem("adminModeTrueOrFalse") === null) {
   notAdminMode();
@@ -43,7 +44,7 @@ else {
   }
 
 }
-*/
+
 
 function notAdminMode() {
   localStorage.setItem("adminModeTrueOrFalse", "false");
