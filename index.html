@@ -44,6 +44,13 @@
           <div class="card-body">
             <h5 class="card-title">Number of Points:</h5>
             <p class="card-text" id="first-points"></p>
+            <table class="admin-mode-table">
+              <tr>
+                <td><input type="text" id="freshmanPointsToAdd" class="form-control" placeholder="# of points to add"></td>
+                <td><button type="button" class="btn btn-success" onclick="changePoints(9, 1)"><i class="fas fa-plus"></i></button></td>
+                <td><button type="button" class="btn btn-success" onclick="changePoints(9, 2)"><i class="fas fa-minus"></i></button></td>
+              </tr>
+            </table>
           </div>
         </div>
 
@@ -99,7 +106,7 @@
 
       <br></br>
 
-      <button onclick="document.getElementById('login').style.display='block'" type="button" class="btn btn-outline-success">Admin</button>
+      <button onclick="document.getElementById('login').style.display='block'" type="button" class="btn btn-outline-success" id="admin-button">Admin</button>
       <div id="login" class = "modal">
         <form name="myForm" class="modal-content animate" method="post">
           <div class="imgcontainer">
@@ -120,12 +127,29 @@
         </form>
       </div>
 
+      <button type="button" name="button" class="btn btn-outline-success" id="in-admin-button" onclick="exitAdminModeClicked()">Exit Admin Mode</button>
+      <br>
+      <button type="button" name="button" class="btn btn-outline-success" id="history-button" onclick="historyButtonClicked()">See History</button>
+
 
       <footer class="page-footer font-small ml-auto">
         <div class="footer-copyright ml-auto py-3">@2019 Pinewood Technology Club</div>
       </footer>
 
     </div>
+
+    <!-- Link to Firebase -->
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/7.5.0/firebase-app.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+         https://firebase.google.com/docs/web/setup#available-libraries -->
+    <script src="https://www.gstatic.com/firebasejs/7.5.0/firebase-analytics.js"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/7.5.0/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.5.0/firebase-auth.js"></script>
+
+
     <!-- Link to index.js sheet -->
     <script src="index.js" charset="utf-8"></script>
   </body>
