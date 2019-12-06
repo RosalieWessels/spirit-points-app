@@ -253,7 +253,7 @@ function gotScore(points) {
   //Variables to store the points in for all the grades
   console.log(points);
   var freshman_SP = [points[2], "Freshman"];
-  var sophomore_SP = [points[3], "Sophmore"];
+  var sophomore_SP = [points[3], "Sophomore"];
   var junior_SP = [points[4], "Junior"];
   var senior_SP  = [points[5], "Senior"];
   var m_8_SP  = [points[1], "8th Grade"];
@@ -400,8 +400,16 @@ function changePoints(gradeToAdd, operation) {
     var docRef = db.collection("points").doc("Freshman");
   }
   else if (gradeToAdd==10) {
-    pointsToAdd = document.getElementById("sophmorePointsToAdd").value;
+    pointsToAdd = document.getElementById("sophomorePointsToAdd").value;
     var docRef = db.collection("points").doc("Sophomores");
+  }
+  else if (gradeToAdd==11){
+    pointsToAdd = document.getElementById("juniorPointsToAdd").value;
+    var docRef = db.collection("points").doc("Juniors");
+  }
+  else if (gradeToAdd==12){
+    pointsToAdd = document.getElementById("seniorPointsToAdd").value;
+    var docRef = db.collection("points").doc("Seniors");
   }
   //TODO: Make it work for all of the other grades. You should be able to leave
   //the code below as is. Update the code below so if, for example, grade
