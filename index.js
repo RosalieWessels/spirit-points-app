@@ -411,6 +411,14 @@ function changePoints(gradeToAdd, operation) {
     pointsToAdd = document.getElementById("seniorPointsToAdd").value;
     var docRef = db.collection("points").doc("Seniors");
   }
+  else if (gradeToAdd==7){
+    pointsToAdd = document.getElementById("m7PointsToAdd").value;
+    var docRef = db.collection("points").doc("7th Grade");
+  }
+  else if (gradeToAdd==8){
+    pointsToAdd = document.getElementById("m8PointsToAdd").value;
+    var docRef = db.collection("points").doc("8th Grade");
+  }
   //TODO: Make it work for all of the other grades. You should be able to leave
   //the code below as is. Update the code below so if, for example, grade
   //= 10 then get the value of sophomorePointsToAdd and make the docRef
