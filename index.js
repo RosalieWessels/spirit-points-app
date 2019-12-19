@@ -54,6 +54,9 @@ function notAdminMode() {
     element[i].classList.add("admin-mode-table-hidden");
   }
 
+  document.getElementById("grades").disabled = false;
+  document.getElementById("points").disabled = false;
+
   var adminButton = document.getElementById("admin-button");
   adminButton.style.display = "block";
 
@@ -70,6 +73,9 @@ function adminMode() {
   for (i = 0; i < element.length; i++) {
     element[i].classList.remove("admin-mode-table-hidden");
   }
+
+  document.getElementById("grades").disabled = true;
+  document.getElementById("points").disabled = true;
 
   var adminButton = document.getElementById("admin-button");
   adminButton.style.display = "none";
