@@ -101,6 +101,9 @@ i{
     padding-left: 15%;
     padding-right: 15%
   }
+  .card-header{
+    font-size: 14px;
+  }
 }
 
 .modal-content {
