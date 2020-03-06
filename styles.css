@@ -23,6 +23,9 @@ h1 {
   color: white;
 }
 /* */
+.close{
+  cursor: pointer
+}
 
 .btn-group button{
   background-color: #27a844;
