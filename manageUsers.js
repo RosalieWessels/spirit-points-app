@@ -12,6 +12,7 @@ var firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 firebase.analytics();
 db = firebase.firestore();
+var allusers = []
 
 var user = localStorage.getItem("name");
 console.log(user);
@@ -20,16 +21,64 @@ function backButtonClicked() {
   window.location.href = "index.html";
 }
 
+function addNewEmailAdressToFirebase(email){
+  db.collection("users").doc(email).set({
+      email: email
+  })
+  .then(function() {
+      console.log("Document successfully written!");
+      alert("Signup successful!");
+  })
+  .catch(function(error) {
+      console.error("Error writing document: ", error);
+  });
+}
+
+function findAllUserAccounts(){
+  db.collection("users").get().then(function(querySnapshot) {
+    querySnapshot.forEach(function(doc) {
+        // doc.data() is never undefined for query doc snapshots
+        allusers.push(doc.data().email)
+    });
+    updateUserTable()
+  });
+}
+
+function updateUserTable(){
+  table = document.getElementById("usersTable");
+  allusers.forEach(function (user, index) {
+    var row = table.insertRow(0);
+    var cell1 = row.insertCell(0);
+    var cell2 = row.insertCell(1);
+
+    cell1.innerHTML = user
+    cell2.innerHTML = "actions"
+  });
+}
+
+findAllUserAccounts()
+
+
 function createAccount(email, password, _callback){
   alert("Going to create account");
   alert(email);
-  firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
-    // Handle Errors here.
-    var errorCode = error.code;
-    var errorMessage = error.message;
-    alert(errorMessage);
-    // ...
-  });
+  // firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
+  //   // Handle Errors here.
+  //   var errorCode = error.code;
+  //   var errorMessage = error.message;
+  //   alert(errorMessage);
+  //   // ...
+  // });
+  firebase.auth().createUserWithEmailAndPassword(email, password)
+  .then(()=>{
+      console.log('Signup successful.');
+      addNewEmailAdressToFirebase(email)
+     })
+  .catch((error)=> {
+      console.log(error.code);
+      console.log(error.message);
+      alert(error.message);
+    });
 }
 
 function createNewUserButtonClicked(){
