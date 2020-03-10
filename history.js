@@ -1,12 +1,12 @@
 var firebaseConfig = {
-  apiKey: "AIzaSyBJD1A0wArmqkvBKF850iTztL4AGbNyInY",
-  authDomain: "pinewood-spirit-points.firebaseapp.com",
-  databaseURL: "https://pinewood-spirit-points.firebaseio.com",
-  projectId: "pinewood-spirit-points",
-  storageBucket: "pinewood-spirit-points.appspot.com",
-  messagingSenderId: "706426515672",
-  appId: "1:706426515672:web:155b646282e7f0b34467ad",
-  measurementId: "G-F3KVNP7NNR"
+  apiKey: "AIzaSyDw4yV21-ffCNPoGDtHL-cSs6Y4-8FVN2E",
+  authDomain: "pinewoodspiritpointswebs-3b49d.firebaseapp.com",
+  databaseURL: "https://pinewoodspiritpointswebs-3b49d.firebaseio.com",
+  projectId: "pinewoodspiritpointswebs-3b49d",
+  storageBucket: "pinewoodspiritpointswebs-3b49d.appspot.com",
+  messagingSenderId: "604971263604",
+  appId: "1:604971263604:web:e502093a66094f19495321",
+  measurementId: "G-LZEV31GP0X"
 };
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);

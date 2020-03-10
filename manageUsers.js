@@ -1,24 +1,50 @@
 var firebaseConfig = {
-  apiKey: "AIzaSyBJD1A0wArmqkvBKF850iTztL4AGbNyInY",
-  authDomain: "pinewood-spirit-points.firebaseapp.com",
-  databaseURL: "https://pinewood-spirit-points.firebaseio.com",
-  projectId: "pinewood-spirit-points",
-  storageBucket: "pinewood-spirit-points.appspot.com",
-  messagingSenderId: "706426515672",
-  appId: "1:706426515672:web:155b646282e7f0b34467ad",
-  measurementId: "G-F3KVNP7NNR"
+  apiKey: "AIzaSyDw4yV21-ffCNPoGDtHL-cSs6Y4-8FVN2E",
+  authDomain: "pinewoodspiritpointswebs-3b49d.firebaseapp.com",
+  databaseURL: "https://pinewoodspiritpointswebs-3b49d.firebaseio.com",
+  projectId: "pinewoodspiritpointswebs-3b49d",
+  storageBucket: "pinewoodspiritpointswebs-3b49d.appspot.com",
+  messagingSenderId: "604971263604",
+  appId: "1:604971263604:web:e502093a66094f19495321",
+  measurementId: "G-LZEV31GP0X"
 };
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 firebase.analytics();
 db = firebase.firestore();
 
+var user = localStorage.getItem("name");
+console.log(user);
+
 function backButtonClicked() {
   window.location.href = "index.html";
 }
 
+function createAccount(email, password, _callback){
+  alert("Going to create account");
+  alert(email);
+  firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
+    // Handle Errors here.
+    var errorCode = error.code;
+    var errorMessage = error.message;
+    alert(errorMessage);
+    // ...
+  });
+}
+
 function createNewUserButtonClicked(){
-  email = document.getElementById("emailInput").value;
-  password = document.getElementById("passwordInput").value;
-  alert(email, password);
+  var email = document.getElementById("emailInput").value;
+  var password = document.getElementById("passwordInput").value;
+
+  var masterUsers = ["23rwessels@pinewood.edu"];
+
+  if (masterUsers.includes(user) == true) {
+    alert("MASTER USER");
+    createAccount(email, password, function() {
+        console.log('huzzah, I\'m done!');
+    });
+  }
+  else{
+    alert("You do not have the permission to create a new account")
+  }
 }

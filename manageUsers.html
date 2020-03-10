@@ -40,9 +40,9 @@
         </div>
         <div class="form-group">
           <label for="exampleInputPassword1">Password</label>
-          <input class="form-control" id="passwordInput">
+          <input type="password" class="form-control" id="passwordInput">
         </div>
-        <button type="submit" class="btn btn-success" onclick="createNewUserButtonClicked()">Create new user</button>
+        <button type="submit" class="btn btn-success" onclick="createNewUserButtonClicked();return false;">Create new user</button>
       </form>
 
       <br>
@@ -54,14 +54,14 @@
 
     <!-- Link to Firebase -->
     <!-- The core Firebase JS SDK is always required and must be listed first -->
-    <script src="https://www.gstatic.com/firebasejs/7.5.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.10.0/firebase-app.js"></script>
 
     <!-- TODO: Add SDKs for Firebase products that you want to use
          https://firebase.google.com/docs/web/setup#available-libraries -->
-    <script src="https://www.gstatic.com/firebasejs/7.5.0/firebase-analytics.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.10.0/firebase-analytics.js"></script>
 
-    <script src="https://www.gstatic.com/firebasejs/7.5.0/firebase-firestore.js"></script>
-
+    <script src="https://www.gstatic.com/firebasejs/7.10.0/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.10.0/firebase-auth.js"></script>
 
     <!-- Link to mangaeUsers.js sheet -->
     <script src="manageUsers.js" charset="utf-8"></script>
