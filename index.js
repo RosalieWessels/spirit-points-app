@@ -1,16 +1,16 @@
 //FIREBASE DATABASE
 // Your web app's Firebase configuration
-
 var firebaseConfig = {
-  apiKey: "AIzaSyBJD1A0wArmqkvBKF850iTztL4AGbNyInY",
-  authDomain: "pinewood-spirit-points.firebaseapp.com",
-  databaseURL: "https://pinewood-spirit-points.firebaseio.com",
-  projectId: "pinewood-spirit-points",
-  storageBucket: "pinewood-spirit-points.appspot.com",
-  messagingSenderId: "706426515672",
-  appId: "1:706426515672:web:155b646282e7f0b34467ad",
-  measurementId: "G-F3KVNP7NNR"
+  apiKey: "AIzaSyDw4yV21-ffCNPoGDtHL-cSs6Y4-8FVN2E",
+  authDomain: "pinewoodspiritpointswebs-3b49d.firebaseapp.com",
+  databaseURL: "https://pinewoodspiritpointswebs-3b49d.firebaseio.com",
+  projectId: "pinewoodspiritpointswebs-3b49d",
+  storageBucket: "pinewoodspiritpointswebs-3b49d.appspot.com",
+  messagingSenderId: "604971263604",
+  appId: "1:604971263604:web:e502093a66094f19495321",
+  measurementId: "G-LZEV31GP0X"
 };
+
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 firebase.analytics();
@@ -19,17 +19,31 @@ db = firebase.firestore();
 var username = "something";
 var pw = "bla";
 
-/*
-var user = firebase.auth().currentUser;
-if (user) {
-  //User is signed in
-  console.log("logged in");
-  localStorage.setItem("adminModeTrueOrFalse", "true");
-}
-else {
-  console.log("not logged in");
-}
-*/
+
+// firebase.auth().onAuthStateChanged(function(user) {
+//   if (user) {
+//     // User is signed in.
+//     console.log("USER IS LOGGED IN");
+//     localStorage.setItem("adminModeTrueOrFalse", "true");
+//   } else {
+//     // No user is signed in.
+//     console.log("USER IS LOGGED OUT");
+//     localStorage.setItem("adminModeTrueOrFalse", "false");
+//   }
+// });
+
+// var user = firebase.auth().currentUser;
+// if (user) {
+//   //User is signed in
+//   console.log("logged in");
+//   localStorage.setItem("adminModeTrueOrFalse", "true");
+// }
+// else {
+//   console.log("not logged in");
+//   localStorage.setItem("adminModeTrueOrFalse", "false");
+// }
+
+
 
 if (localStorage.getItem("adminModeTrueOrFalse") === null) {
   notAdminMode();
@@ -65,6 +79,9 @@ function notAdminMode() {
 
   var historyButton = document.getElementById("history-button");
   historyButton.style.display = "none";
+
+  var manageUsersButton = document.getElementById("manageUsers-button");
+  manageUsersButton.style.display = "none";
 }
 
 function adminMode() {
@@ -85,6 +102,9 @@ function adminMode() {
 
   var historyButton = document.getElementById("history-button");
   historyButton.style.display = "block";
+
+  var manageUsersButton = document.getElementById("manageUsers-button");
+  manageUsersButton.style.display = "block";
 }
 
 function setUpFirebaseDatabase(){
@@ -156,7 +176,7 @@ function setUpFirebaseDatabase(){
 }
 
 //ONLY HAD TO BE USED ONCE, DO NOT UNCOMMENT BECAUSE IT WILL RESET THE POINTS
-//setUpFirebaseDatabase();
+//setUpFirebaseDatabase(); //DO NOT UNCOMMENT PLEASE
 
 function getData(){
   var docRef = db.collection("points").doc("Freshman");
@@ -283,6 +303,44 @@ function gotScore(points) {
 
 }
 
+
+async function signInWithFirebase(x,y){
+   await firebase.auth().signInWithEmailAndPassword(x, y).catch(function(error) {
+    // Handle Errors here.
+    var errorCode = error.code;
+    var errorMessage = error.message;
+    firebase.auth().signOut().then(function() {
+      console.log('Signed Out');
+    }, function(error) {
+      console.error('Sign Out Error', error);
+    });
+    alert(errorMessage);
+    // ...
+  });
+  checkIfSignedIn();
+}
+
+async function checkIfSignedIn(){
+
+  firebase.auth().onAuthStateChanged(function(user) {
+    if (user) {
+      // User is signed in.
+      console.log("USER IS LOGGED IN");
+      localStorage.setItem("adminModeTrueOrFalse", "true");
+      var modal = document.getElementById('login');
+      modal.style.display = "none";
+
+    } else {
+      // No user is signed in.
+      console.log("USER IS LOGGED OUT");
+      localStorage.setItem("adminModeTrueOrFalse", "false");
+      var modal = document.getElementById('login');
+      modal.style.display = "none";
+
+    }
+  });
+}
+
 //Admin Alert
 var modal = document.getElementById('login');
 window.onclick = function(event) {
@@ -292,40 +350,30 @@ window.onclick = function(event) {
 };
 
 //NO FIREBASE
-function validateForm(){
+async function validateForm(){
   console.log("inside validate Form");
   //var x = document.forms["myForm"]["uname"].value;
   var x = document.forms.myForm.uname.value;
   //var y = document.forms["myForm"]["password"].value;
   var y = document.forms.myForm.password.value;
 
-  // firebase.auth().signInWithEmailAndPassword(x, y).then(function() {
-  //   var user = firebase.auth().currentUser;
-  //   if (user) {
-  //     //User is signed in
-  //     alert("logged in");
-  //     localStorage.setItem("adminModeTrueOrFalse", "true");
-  //     localStorage.setItem("name", x);
-  //   }
-  //   else {
-  //     alert("not logged in");
-  //   }
-  // }).catch(function(error) {
-  //   // Handle Errors here.
-  //   var errorCode = error.code;
-  //   var errorMessage = error.message;
-  //   alert("Error", errorMessage);
-  //   // ...
-  // });
-  if(x==username && y == pw){
-    alert("Access granted");
-    localStorage.setItem('adminModeTrueOrFalse','true');
-    localStorage.setItem("name", x);
-    getData();
-  }
-  else{
-    alert("Access denied")
-  }
+  alert(x);
+  alert(y);
+  await signInWithFirebase(x,y);
+
+  localStorage.setItem("name", x);
+  getData();
+  location.reload();
+
+  // if(x==username && y == pw){
+  //   alert("Access granted");
+  //   localStorage.setItem('adminModeTrueOrFalse','true');
+  //   localStorage.setItem("name", x);
+  //   getData();
+  // }
+  // else{
+  //   alert("Access denied");
+  // }
 }
 
 //Sets the text content of the labels to the variable
@@ -492,4 +540,8 @@ function exitAdminModeClicked() {
 
 function historyButtonClicked() {
   window.location.href = "history.html";
+}
+
+function manageUsersClicked() {
+  window.location.href = "manageUsers.html";
 }

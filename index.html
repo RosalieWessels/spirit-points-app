@@ -143,7 +143,7 @@
 
       <button onclick="document.getElementById('login').style.display='block'" type="button" class="btn btn-outline-success" id="admin-button">Admin</button>
       <div id="login" class = "modal">
-        <form name="myForm" class="modal-content animate" method="post">
+        <form name="myForm" class="modal-content animate" method="post" onsubmit="return false">
           <div class="imgcontainer">
             <span onclick="document.getElementById('login').style.display='none'"class="close" title="Close Modal" style="color:#a00000;">&times;</span>
           </div>
@@ -165,6 +165,8 @@
       <button type="button" name="button" class="btn btn-outline-success" id="in-admin-button" onclick="exitAdminModeClicked()">Exit Admin Mode</button>
       <br>
       <button type="button" name="button" class="btn btn-outline-success" id="history-button" onclick="historyButtonClicked()">See History</button>
+      <br>
+      <button type="button" name="button" class="btn btn-outline-success" id="manageUsers-button" onclick="manageUsersClicked()">Manage Users</button>
 
 
       <footer class="page-footer font-small ml-auto">
@@ -175,14 +177,14 @@
 
     <!-- Link to Firebase -->
     <!-- The core Firebase JS SDK is always required and must be listed first -->
-    <script src="https://www.gstatic.com/firebasejs/7.5.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.10.0/firebase-app.js"></script>
 
     <!-- TODO: Add SDKs for Firebase products that you want to use
          https://firebase.google.com/docs/web/setup#available-libraries -->
-    <script src="https://www.gstatic.com/firebasejs/7.5.0/firebase-analytics.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.10.0/firebase-analytics.js"></script>
 
-    <script src="https://www.gstatic.com/firebasejs/7.5.0/firebase-firestore.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/7.5.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.10.0/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.10.0/firebase-auth.js"></script>
 
 
     <!-- Link to index.js sheet -->
