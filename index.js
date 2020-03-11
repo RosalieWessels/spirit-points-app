@@ -357,23 +357,11 @@ async function validateForm(){
   //var y = document.forms["myForm"]["password"].value;
   var y = document.forms.myForm.password.value;
 
-  alert(x);
-  alert(y);
   await signInWithFirebase(x,y);
 
   localStorage.setItem("name", x);
   getData();
   location.reload();
-
-  // if(x==username && y == pw){
-  //   alert("Access granted");
-  //   localStorage.setItem('adminModeTrueOrFalse','true');
-  //   localStorage.setItem("name", x);
-  //   getData();
-  // }
-  // else{
-  //   alert("Access denied");
-  // }
 }
 
 //Sets the text content of the labels to the variable

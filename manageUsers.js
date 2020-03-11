@@ -17,6 +17,30 @@ var allusers = []
 var user = localStorage.getItem("name");
 console.log(user);
 
+deleteButtons = []
+
+firebase.auth().onAuthStateChanged(function(user) {
+  if (user) {
+    // User is signed in.
+    console.log("USER IS LOGGED IN");
+  } else {
+    // No user is signed in.
+    console.log("USER IS LOGGED OUT");
+  }
+});
+
+// var user = firebase.auth().currentUser;
+// var credential;
+//
+// // Prompt the user to re-provide their sign-in credentials
+// user.reauthenticateWithCredential(credential).then(function() {
+//   // User re-authenticated.
+//   console.log("User is logged in")
+// }).catch(function(error) {
+//   // An error happened.
+//   console.log("er")
+// });
+
 function backButtonClicked() {
   window.location.href = "index.html";
 }
@@ -34,6 +58,10 @@ function addNewEmailAdressToFirebase(email){
   });
 }
 
+function deleteButtonClicked() {
+  console.log("Delete user")
+}
+
 function findAllUserAccounts(){
   db.collection("users").get().then(function(querySnapshot) {
     querySnapshot.forEach(function(doc) {
@@ -44,6 +72,23 @@ function findAllUserAccounts(){
   });
 }
 
+function setUpButtons(){
+  deleteButtons.forEach(function (item, index) {
+    var deleteButton = document.getElementById(item)
+    deleteButton.onclick = function(){
+      var email = item.replace("deleteButton", "")
+      alert(email)
+      if (masterUsers.includes(user) == true) {
+        alert("Master User")
+
+      }
+      else{
+        alert("You can not delete an account")
+      }
+    }
+  });
+}
+
 function updateUserTable(){
   table = document.getElementById("usersTable");
   allusers.forEach(function (user, index) {
@@ -51,10 +96,15 @@ function updateUserTable(){
     var cell1 = row.insertCell(0);
     var cell2 = row.insertCell(1);
 
-    cell1.innerHTML = user
-    cell2.innerHTML = "actions"
+    cell1.innerHTML = user;
+    id = "deleteButton" + user;
+    deleteButtons.push(id)
+    cell2.innerHTML = '<button type="button" class="btn btn-outline-danger" id="'+id+'">Delete</button>'
   });
+  console.log(deleteButtons)
+  setUpButtons()
 }
+
 
 findAllUserAccounts()
 
@@ -94,6 +144,37 @@ function createNewUserButtonClicked(){
     });
   }
   else{
-    alert("You do not have the permission to create a new account")
+    alert("You do not have the permission to create a new account");
   }
+}
+
+function deleteMyAccountButtonClicked(){
+  var userFirebase = firebase.auth().currentUser;
+
+  db.collection("users").doc(user).delete().then(function() {
+    console.log("Document successfully deleted!");
+    userFirebase.delete().then(function() {
+      // User deleted.
+      console.log("account deleted");
+      alert("Your account has been deleted");
+      localStorage.setItem("adminModeTrueOrFalse", "false");
+      window.location.href = "index.html";
+    }).catch(function(error) {
+      // An error happened.
+      db.collection("users").doc(user).set({
+          email: user
+      })
+      .then(function() {
+          console.log("Document successfully written!");
+          alert("Something went wrong. Please try signing in again and then try to delete your account again.");
+      })
+      .catch(function(error) {
+          console.error("Error writing document: ", error);
+      });
+
+    });
+
+  }).catch(function(error) {
+    console.error("Error removing document: ", error);
+  });
 }
