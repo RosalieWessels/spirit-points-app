@@ -12,12 +12,34 @@ var firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 firebase.analytics();
 db = firebase.firestore();
-var allusers = []
+var allusers = [];
+var masterUsers = ["23rwessels@pinewood.edu"];
 
 var user = localStorage.getItem("name");
 console.log(user);
 
-deleteButtons = []
+var masterUser = false;
+
+if (masterUsers.includes(user) == true) {
+  masterUser = true;
+}
+
+//var table = document.getElementById("usersTable");
+//var titleForTable = document.getElementById("titleForTable");
+var tableDiv = document.getElementById("tableID");
+var addUserDiv = document.getElementById("addUserDiv");
+
+if (masterUser == false) {
+  tableDiv.style.display = "none";
+  addUserDiv.style.display = "none";
+}
+else {
+  tableDiv.style.display = "block";
+  addUserDiv.style.display = "block";
+
+}
+
+deleteButtons = [];
 
 firebase.auth().onAuthStateChanged(function(user) {
   if (user) {
@@ -134,8 +156,6 @@ function createAccount(email, password, _callback){
 function createNewUserButtonClicked(){
   var email = document.getElementById("emailInput").value;
   var password = document.getElementById("passwordInput").value;
-
-  var masterUsers = ["23rwessels@pinewood.edu"];
 
   if (masterUsers.includes(user) == true) {
     alert("MASTER USER");

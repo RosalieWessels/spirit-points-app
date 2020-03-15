@@ -32,29 +32,33 @@
       <br>
       <h2>Manage Users</h2>
       <br>
-      <h3>See & Delete users</h3>
-      <br>
-      <table style="width:100%" id="usersTable">
-      </table>
-      <br>
+      <div id="tableID">
+        <h3 id="titleForTable">See & Delete users</h3>
+        <br>
+        <table style="width:100%" id="usersTable">
+        </table>
+        <br>
+      </div>
       <h3>Delete my own account</h3>
       <p>Please sign out and sign in quickly before deleting your account.</p>
       <button type="button" class="btn btn-outline-danger" onclick="deleteMyAccountButtonClicked()">Delete</button>
       <br>
       <br>
-      <h3>Add a new user</h3>
-      <br>
-      <form>
-        <div class="form-group">
-          <label for="exampleInputEmail1">Email address</label>
-          <input type="email" class="form-control" id="emailInput" aria-describedby="emailHelp">
-        </div>
-        <div class="form-group">
-          <label for="exampleInputPassword1">Password</label>
-          <input type="password" class="form-control" id="passwordInput">
-        </div>
-        <button type="submit" class="btn btn-success" onclick="createNewUserButtonClicked();return false;">Create new user</button>
-      </form>
+      <div id="addUserDiv">
+        <h3>Add a new user</h3>
+        <br>
+        <form>
+          <div class="form-group">
+            <label for="exampleInputEmail1">Email address</label>
+            <input type="email" class="form-control" id="emailInput" aria-describedby="emailHelp">
+          </div>
+          <div class="form-group">
+            <label for="exampleInputPassword1">Password</label>
+            <input type="password" class="form-control" id="passwordInput">
+          </div>
+          <button type="submit" class="btn btn-success" onclick="createNewUserButtonClicked();return false;">Create new user</button>
+        </form>
+      </div>
 
       <br>
       <footer class="page-footer font-small ml-auto">
