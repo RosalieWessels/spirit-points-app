@@ -27,9 +27,16 @@ db.collection("history").get().then(function(querySnapshot) {
         points = doc.data().points;
         user = doc.data().user;
         grade = doc.data().grade;
+        var datelist = [];
+        datelist.append(doc.data().date);
+        datelist.sort();
+        var dict = {doc.data().stringDate: points, user, grade};
+        datedict[doc.data().date] = (points, user, grade);
+        for (date = 0, date <= len(datelist); date++) {
+          li.innerHTML = "<strong> User: </strong> " + datedict[datelist[date]][0] + "<strong> Points: </strong>" + datedict[datelist[date]][1] + "<strong> Grade: </strong>" + datedict[datelist[date]][2] + "<strong> Date: </strong>" + datelist[date];
+        }
         element = document.getElementById("add-history");
         li = document.createElement("li");
-        li.innerHTML = "<strong> User: </strong> " + user + "<strong> Points: </strong>" + points + "<strong> Grade: </strong>" + grade + "<strong> Date: </strong>" + stringDate;
         element.appendChild(li);
         //pElementContext = pElement.textContent;
         //pElementContext += user + " " + points + " " + grade + " " + stringDate + "%0D";
