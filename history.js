@@ -20,6 +20,8 @@ function backButtonClicked() {
 var historyRef = db.collection("history");
 historyRef.orderBy("date", "desc");
 
+var datelist = [];
+var dict = {};
 db.collection("history").get().then(function(querySnapshot) {
     querySnapshot.forEach(function(doc) {
         console.log(doc.data().stringDate);
@@ -27,19 +29,17 @@ db.collection("history").get().then(function(querySnapshot) {
         points = doc.data().points;
         user = doc.data().user;
         grade = doc.data().grade;
-        var datelist = [];
         datelist.append(doc.data().date);
-        datelist.sort();
-        var dict = {doc.data().stringDate: points, user, grade};
-        datedict[doc.data().date] = (points, user, grade);
-        for (date = 0, date <= len(datelist); date++) {
-          li.innerHTML = "<strong> User: </strong> " + datedict[datelist[date]][0] + "<strong> Points: </strong>" + datedict[datelist[date]][1] + "<strong> Grade: </strong>" + datedict[datelist[date]][2] + "<strong> Date: </strong>" + datelist[date];
-        }
+        dict.push({stringDate: [points, user, grade]});
         element = document.getElementById("add-history");
         li = document.createElement("li");
         element.appendChild(li);
+        for (date = 0, date < len(datelist); date++;) {
+          li.innerHTML = "<strong> User: </strong> " + datedict[datelist[date]][0] + "<strong> Points: </strong>" + datedict[datelist[date]][1] + "<strong> Grade: </strong>" + datedict[datelist[date]][2] + "<strong> Date: </strong>" + datelist[date];
+        }
         //pElementContext = pElement.textContent;
         //pElementContext += user + " " + points + " " + grade + " " + stringDate + "%0D";
         //document.getElementById("add-history").textContent = pElementContext;
     });
 });
+datelist.sort();
