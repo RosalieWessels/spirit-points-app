@@ -17,29 +17,31 @@ function backButtonClicked() {
   window.location.href = "index.html";
 }
 
-var historyRef = db.collection("history");
-historyRef.orderBy("date", "desc");
+function getFacultyFavoritesFirebase() {
+    var dbRef= db.collection("history");
+    var dbQuery = dbRef.orderBy("date", "desc");
 
-var datelist = [];
-var dict = {};
-db.collection("history").get().then(function(querySnapshot) {
-    querySnapshot.forEach(function(doc) {
-        console.log(doc.data().stringDate);
-        stringDate = doc.data().stringDate;
-        points = doc.data().points;
-        user = doc.data().user;
-        grade = doc.data().grade;
-        datelist.append(doc.data().date);
-        dict.push({stringDate: [points, user, grade]});
-        element = document.getElementById("add-history");
-        li = document.createElement("li");
-        element.appendChild(li);
-        for (date = 0, date < len(datelist); date++;) {
-          li.innerHTML = "<strong> User: </strong> " + datedict[datelist[date]][0] + "<strong> Points: </strong>" + datedict[datelist[date]][1] + "<strong> Grade: </strong>" + datedict[datelist[date]][2] + "<strong> Date: </strong>" + datelist[date];
-        }
-        //pElementContext = pElement.textContent;
-        //pElementContext += user + " " + points + " " + grade + " " + stringDate + "%0D";
-        //document.getElementById("add-history").textContent = pElementContext;
+    var dbPromise = dbQuery.get();
+    // return the main promise
+    return dbPromise.then(function(querySnapshot) {
+        var results = [];
+        querySnapshot.forEach(function(doc) {
+            results.push(doc.data());
+        });
+        return Promise.all(results);
+    })
+    .catch(function(error) {
+        console.log("Error getting documents: ", error);
     });
+}
+
+getFacultyFavoritesFirebase().then(results => {
+
+    for (var i = 0; i < results.length; i++) {
+
+      element = document.getElementById("add-history");
+      li = document.createElement("li");
+      li.innerHTML = "<strong> Date: </strong> " + results[i].stringDate + "<strong> Reason: </strong>" + results[i].reason + "<strong> User: </strong>" + results[i].user + "<strong> Grade: </strong>" + results[i].grade + "<strong> Points: </strong>" + results[i].points;
+      element.appendChild(li);
+    }
 });
-datelist.sort();

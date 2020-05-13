@@ -433,7 +433,7 @@ function sort(toggle, all_grades, m_8_SP, m_7_SP, greatest, freshman_SP, sophomo
 getData();
 
 function changePoints(gradeToAdd, operation) {
-  alert("Lets add some points");
+  var reason=prompt("Please add a reason","");
   var pointsToAdd = 0;
 
   //Get points to add
@@ -461,10 +461,7 @@ function changePoints(gradeToAdd, operation) {
     pointsToAdd = document.getElementById("m8PointsToAdd").value;
     var docRef = db.collection("points").doc("8th Grade");
   }
-  //TODO: Make it work for all of the other grades. You should be able to leave
-  //the code below as is. Update the code below so if, for example, grade
-  //= 10 then get the value of sophomorePointsToAdd and make the docRef
-  //Sophomore instead of Freshman
+
   console.log(pointsToAdd);
 
   //Get current points
@@ -499,7 +496,8 @@ function changePoints(gradeToAdd, operation) {
                   points: parseInt(pointsToAdd),
                   grade: parseInt(gradeToAdd),
                   date: currentDate,
-                  stringDate: String(currentDate)
+                  stringDate: String(currentDate),
+                  reason: String(reason)
               })
               .then(function() {
                   console.log("Document successfully written!");
