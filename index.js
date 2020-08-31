@@ -287,7 +287,7 @@ function gotScore(points) {
 
   console.log(points[0], points[1], points[2], points[3]);
 
-  var greatest = Math.max(freshman_SP[0], sophomore_SP[0], junior_SP[0], senior_SP[0]);
+  var greatest = Math.min(freshman_SP[0], sophomore_SP[0], junior_SP[0], senior_SP[0]);
   var all_grades = [freshman_SP, sophomore_SP, junior_SP, senior_SP];
   console.log("all grades", all_grades);
   document.getElementById("grades").onclick = function() {sort("grades", all_grades, m_8_SP, m_7_SP, greatest, freshman_SP, sophomore_SP, junior_SP, senior_SP);};
