@@ -440,13 +440,17 @@ function getUpcomingEvents() {
         // valuesArray.push(String(doc.data().PointsPossible));
         var ul = document.getElementById("upcomingEventsList");
         var li = document.createElement("li");
+        var span = document.createElement("span");
         var documentString = "upcomingEvent" + String(documentNumber);
         var documentStringPoints = documentString + "Points";
         console.log(documentStringPoints);
         var documentData = doc.data();
         li.setAttribute("class", "list-group-item d-flex justify-content-between align-items-center");
+        span.setAttribute("class", "badge badge-primary badge-pill");
         li.innerHTML = documentData.NameAndDate;
+        span.innerHTML = documentData.PointsPossible;
         //document.getElementById(documentString).innerHTML = documentData.NameAndDate;
+        li.appendChild(span);
         ul.appendChild(li);
         //document.getElementById(documentStringPoints).textContent = documentData.PointsPossible;
         // if (documentNumber == 0) {
