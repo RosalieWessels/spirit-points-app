@@ -429,6 +429,45 @@ function sort(toggle, all_grades, m_8_SP, m_7_SP, greatest, freshman_SP, sophomo
   return;
 }
 
+function getUpcomingEvents() {
+  var documentNumber = 1;
+  //var valuesArray = [];
+  db.collection("upcoming events").get().then(function(querySnapshot) {
+    querySnapshot.forEach(function(doc) {
+        // doc.data() is never undefined for query doc snapshots
+        console.log(doc.id, " => ", doc.data());
+        // valuesArray.push(doc.data().NameAndDate);
+        // valuesArray.push(String(doc.data().PointsPossible));
+        var ul = document.getElementById("upcomingEventsList");
+        var li = document.createElement("li");
+        var documentString = "upcomingEvent" + String(documentNumber);
+        var documentStringPoints = documentString + "Points";
+        console.log(documentStringPoints);
+        var documentData = doc.data();
+        li.setAttribute("class", "list-group-item d-flex justify-content-between align-items-center");
+        li.innerHTML = documentData.NameAndDate;
+        //document.getElementById(documentString).innerHTML = documentData.NameAndDate;
+        ul.appendChild(li);
+        //document.getElementById(documentStringPoints).textContent = documentData.PointsPossible;
+        // if (documentNumber == 0) {
+        //
+        //   //document.getElementById("upcomingEvent1Points").innerHTML = "b";
+        // }
+        // if (documentNumber == 1) {
+        //   document.getElementById("upcomingEvent2").innerHTML = doc.data().NameAndDate;
+        // }
+        documentNumber += 1;
+    });
+});
+
+// window.onload = function what(){
+//   document.getElementById("upcomingEvent1").innerHTML = valuesArray[0];
+//   document.getElementById("upcomingEvent1Points").innerHTML = valuesArray[1];
+//
+// };
+
+}
+
 //RUNNING CODE
 getData();
 
@@ -519,6 +558,10 @@ function changePoints(gradeToAdd, operation) {
   });
 
 }
+
+window.onload = function what(){
+  getUpcomingEvents();
+};
 
 function exitAdminModeClicked() {
   notAdminMode();
