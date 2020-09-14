@@ -144,21 +144,19 @@
       <h4>Upcoming Events - Get Hyped</h4>
       <br>
       <ul class="list-group" id="upcomingEventsList">
-        <!-- <li class="list-group-item d-flex justify-content-between align-items-center" id="upcomingEvent1">
-          Upcoming
-          <span class="badge badge-primary badge-pill" id="upcomingEvent1Points">14</span>
-        </li>
-        <li class="list-group-item d-flex justify-content-between align-items-center" id="upcomingEvent2">
-          Events
-          <span class="badge badge-primary badge-pill" id="upcomingEvent2Points">2</span>
-        </li>
-        <li class="list-group-item d-flex justify-content-between align-items-center" id="upcomingEvent3">
-          Loading...
-          <span class="badge badge-primary badge-pill" id="upcomingEvent3Points">1</span>
-        </li> -->
+        <!-- Here the events will be added - functionality in index.js -->
       </ul>
-
-      <br></br>
+      <br>
+      <h6 id="upcomingEventHeader">Add/Delete an Element (If adding a date, please be sure to spell it out (otherwise it might not work))</h6>
+      <table class="admin-mode-table-events" id="eventsTable">
+        <tr style="display:inline-block">
+          <td><input type="text" id="upcomingEventToAddOrDelete" class="form-control" placeholder="Name of event to add/delete"></td>
+          <td><input type="text" id="upcomingEventPointsToAddOrDelete" class="form-control" placeholder="Points to earn"></td>
+          <td><button type="button" class="btn btn-success" onclick="addUpcomingEvent()"><i class="fas fa-plus"></i></button></td>
+          <td><button type="button" class="btn btn-success" onclick="removeUpcomingEvent()"><i class="fas fa-minus"></i></button></td>
+        </tr>
+      </table>
+      <br>
 
       <button onclick="document.getElementById('login').style.display='block'" type="button" class="btn btn-outline-success" id="admin-button">Admin</button>
       <div id="login" class = "modal">

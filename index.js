@@ -82,6 +82,12 @@ function notAdminMode() {
 
   var manageUsersButton = document.getElementById("manageUsers-button");
   manageUsersButton.style.display = "none";
+
+  var upcomingEventHeader = document.getElementById("upcomingEventHeader");
+  upcomingEventHeader.style.display = "none";
+
+  var eventsTable = document.getElementById("eventsTable");
+  eventsTable.style.display = "none";
 }
 
 function adminMode() {
@@ -105,6 +111,12 @@ function adminMode() {
 
   var manageUsersButton = document.getElementById("manageUsers-button");
   manageUsersButton.style.display = "block";
+
+  var upcomingEventHeader = document.getElementById("upcomingEventHeader");
+  upcomingEventHeader.style.display = "block";
+
+  var eventsTable = document.getElementById("eventsTable");
+  eventsTable.style.display = "block";
 }
 
 function setUpFirebaseDatabase(){
@@ -430,14 +442,11 @@ function sort(toggle, all_grades, m_8_SP, m_7_SP, greatest, freshman_SP, sophomo
 }
 
 function getUpcomingEvents() {
-  var documentNumber = 1;
-  //var valuesArray = [];
+  var documentNumber = 0;
   db.collection("upcoming events").get().then(function(querySnapshot) {
     querySnapshot.forEach(function(doc) {
         // doc.data() is never undefined for query doc snapshots
         console.log(doc.id, " => ", doc.data());
-        // valuesArray.push(doc.data().NameAndDate);
-        // valuesArray.push(String(doc.data().PointsPossible));
         var ul = document.getElementById("upcomingEventsList");
         var li = document.createElement("li");
         var span = document.createElement("span");
@@ -449,31 +458,43 @@ function getUpcomingEvents() {
         span.setAttribute("class", "badge badge-primary badge-pill");
         li.innerHTML = documentData.NameAndDate;
         span.innerHTML = documentData.PointsPossible;
-        //document.getElementById(documentString).innerHTML = documentData.NameAndDate;
         li.appendChild(span);
         ul.appendChild(li);
-        //document.getElementById(documentStringPoints).textContent = documentData.PointsPossible;
-        // if (documentNumber == 0) {
-        //
-        //   //document.getElementById("upcomingEvent1Points").innerHTML = "b";
-        // }
-        // if (documentNumber == 1) {
-        //   document.getElementById("upcomingEvent2").innerHTML = doc.data().NameAndDate;
-        // }
         documentNumber += 1;
     });
 });
-
-// window.onload = function what(){
-//   document.getElementById("upcomingEvent1").innerHTML = valuesArray[0];
-//   document.getElementById("upcomingEvent1Points").innerHTML = valuesArray[1];
-//
-// };
-
 }
 
 //RUNNING CODE
 getData();
+
+function addUpcomingEvent() {
+  console.log("adding event");
+  name = document.getElementById("upcomingEventToAddOrDelete").value;
+  points = document.getElementById("upcomingEventPointsToAddOrDelete").value;
+
+  db.collection("upcoming events").doc(name).set({
+    NameAndDate: name,
+    PointsPossible: points,
+  })
+  .then(function() {
+      console.log("Document successfully written!");
+      location.reload();
+  })
+  .catch(function(error) {
+      console.error("Error writing document: ", error);
+  });
+}
+
+function removeUpcomingEvent() {
+  name = document.getElementById("upcomingEventToAddOrDelete").value;
+  db.collection("upcoming events").doc(name).delete().then(function() {
+    console.log("Document successfully deleted!");
+    location.reload();
+}).catch(function(error) {
+    console.error("Error removing document: ", error);
+});
+}
 
 function changePoints(gradeToAdd, operation) {
   var reason=prompt("Please add a reason","");
