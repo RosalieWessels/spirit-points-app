@@ -96,7 +96,8 @@ i{
   color: #355535;
 }
 
-@media only screen and (max-width: 768px){
+@media only screen and (max-width: 900px){
+  /* earlier max-width = 768 */
   #middle-school{
     width:100%;
   }
@@ -106,6 +107,10 @@ i{
   }
   .card-header{
     font-size: 14px;
+  }
+
+  #instagram-feed1 {
+    padding: 5%;
   }
 }
 
