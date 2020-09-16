@@ -531,3 +531,37 @@ function historyButtonClicked() {
 function manageUsersClicked() {
   window.location.href = "manageUsers.html";
 }
+window.onload = function () {
+
+var chart = new CanvasJS.Chart("chartContainer", {
+	animationEnabled: true,
+
+	title:{
+		text:"Pinewood Corona Points Graph!"
+	},
+	axisX:{
+		interval: 1
+	},
+	axisY2:{
+		interlacedColor: "rgba(1,77,101,.2)",
+		gridColor: "rgba(1,77,101,.1)",
+		title: "Corona Points"
+	},
+	data: [{
+		type: "bar",
+		name: "companies",
+		axisYType: "secondary",
+		color: "#014D65",
+		dataPoints: [
+			{ y: 1, label: "7th Grade" },
+			{ y: 2, label: "8th Grade" },
+			{ y: 3, label: "9th Grade" },
+			{ y: 4, label: "10th Grade" },
+			{ y: 5, label: "11th Grade" },
+			{ y: 6, label: "12th Grade" },
+		]
+	}]
+});
+chart.render();
+
+}
