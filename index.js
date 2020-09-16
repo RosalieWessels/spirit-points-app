@@ -82,6 +82,12 @@ function notAdminMode() {
 
   var manageUsersButton = document.getElementById("manageUsers-button");
   manageUsersButton.style.display = "none";
+
+  var upcomingEventHeader = document.getElementById("upcomingEventHeader");
+  upcomingEventHeader.style.display = "none";
+
+  var eventsTable = document.getElementById("eventsTable");
+  eventsTable.style.display = "none";
 }
 
 function adminMode() {
@@ -105,6 +111,12 @@ function adminMode() {
 
   var manageUsersButton = document.getElementById("manageUsers-button");
   manageUsersButton.style.display = "block";
+
+  var upcomingEventHeader = document.getElementById("upcomingEventHeader");
+  upcomingEventHeader.style.display = "block";
+
+  var eventsTable = document.getElementById("eventsTable");
+  eventsTable.style.display = "block";
 }
 
 function setUpFirebaseDatabase(){
@@ -402,7 +414,7 @@ function sortFunction(a, b){
         return 0;
     }
     else {
-        return (a[0] > b[0]) ? -1 : 1;
+        return (a[0] < b[0]) ? -1 : 1;
     }
 }
 
@@ -410,7 +422,7 @@ function sortFunction(a, b){
 function sort(toggle, all_grades, m_8_SP, m_7_SP, greatest, freshman_SP, sophomore_SP, junior_SP, senior_SP){
   if (toggle=="points"){
     all_grades.sort(sortFunction);
-    if (m_8_SP[0]>=m_7_SP[0]){
+    if (m_8_SP[0]<=m_7_SP[0]){
       document.getElementById("m_1-points").textContent = m_8_SP[0];
       document.getElementById("m_2-points").textContent = m_7_SP[0];
       document.getElementById("m1").textContent = m_8_SP[1];
@@ -429,8 +441,60 @@ function sort(toggle, all_grades, m_8_SP, m_7_SP, greatest, freshman_SP, sophomo
   return;
 }
 
+function getUpcomingEvents() {
+  var documentNumber = 0;
+  db.collection("upcoming events").get().then(function(querySnapshot) {
+    querySnapshot.forEach(function(doc) {
+        // doc.data() is never undefined for query doc snapshots
+        console.log(doc.id, " => ", doc.data());
+        var ul = document.getElementById("upcomingEventsList");
+        var li = document.createElement("li");
+        var span = document.createElement("span");
+        var documentString = "upcomingEvent" + String(documentNumber);
+        var documentStringPoints = documentString + "Points";
+        console.log(documentStringPoints);
+        var documentData = doc.data();
+        li.setAttribute("class", "list-group-item d-flex justify-content-between align-items-center");
+        span.setAttribute("class", "badge badge-primary badge-pill");
+        li.innerHTML = documentData.NameAndDate;
+        span.innerHTML = documentData.PointsPossible;
+        li.appendChild(span);
+        ul.appendChild(li);
+        documentNumber += 1;
+    });
+});
+}
+
 //RUNNING CODE
 getData();
+
+function addUpcomingEvent() {
+  console.log("adding event");
+  name = document.getElementById("upcomingEventToAddOrDelete").value;
+  points = document.getElementById("upcomingEventPointsToAddOrDelete").value;
+
+  db.collection("upcoming events").doc(name).set({
+    NameAndDate: name,
+    PointsPossible: points,
+  })
+  .then(function() {
+      console.log("Document successfully written!");
+      location.reload();
+  })
+  .catch(function(error) {
+      console.error("Error writing document: ", error);
+  });
+}
+
+function removeUpcomingEvent() {
+  name = document.getElementById("upcomingEventToAddOrDelete").value;
+  db.collection("upcoming events").doc(name).delete().then(function() {
+    console.log("Document successfully deleted!");
+    location.reload();
+}).catch(function(error) {
+    console.error("Error removing document: ", error);
+});
+}
 
 function changePoints(gradeToAdd, operation) {
   var reason=prompt("Please add a reason","");
@@ -519,6 +583,10 @@ function changePoints(gradeToAdd, operation) {
   });
 
 }
+
+window.onload = function what(){
+  getUpcomingEvents();
+};
 
 function exitAdminModeClicked() {
   notAdminMode();

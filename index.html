@@ -142,7 +142,63 @@
         </div>
       </div>
 
-      <br></br>
+      <br>
+      <br>
+      <h4>Upcoming Events - Get Hyped</h4>
+      <br>
+      <ul class="list-group" id="upcomingEventsList">
+        <!-- Here the events will be added - functionality in index.js -->
+      </ul>
+      <br>
+      <h6 id="upcomingEventHeader">Add/Delete an Element (If adding a date, please be sure to spell it out (otherwise it might not work))</h6>
+      <table class="admin-mode-table-events" id="eventsTable">
+        <tr style="display:inline-block">
+          <td><input type="text" id="upcomingEventToAddOrDelete" class="form-control" placeholder="Name of event to add/delete"></td>
+          <td><input type="text" id="upcomingEventPointsToAddOrDelete" class="form-control" placeholder="Points to earn"></td>
+          <td><button type="button" class="btn btn-success" onclick="addUpcomingEvent()"><i class="fas fa-plus"></i></button></td>
+          <td><button type="button" class="btn btn-success" onclick="removeUpcomingEvent()"><i class="fas fa-minus"></i></button></td>
+        </tr>
+      </table>
+      <br>
+
+      <div class="" id="instagram-feed1">
+
+      </div>
+
+      <script src="dist/InstagramFeed.min.js"></script>
+      <script>
+
+        var screenWidth = screen.width
+        console.log("Screen width", screenWidth)
+        if (screenWidth <= 850){
+           items = 6
+           items_per_row = 2
+        }
+        else {
+           items = 8
+           items_per_row = 4
+        }
+
+        (function(){
+              new InstagramFeed({
+                  'username': 'pinewoodslc',
+                  'container': document.getElementById("instagram-feed1"),
+                  'display_profile': true,
+                  'display_biography': false,
+                  'display_gallery': true,
+                  'callback': null,
+                  'styling': true,
+                  'items': items,
+                  'items_per_row': items_per_row,
+                  'margin': 1,
+                  'lazy_load': true,
+                  'on_error': console.error
+              });
+          })();
+      </script>
+
+      <br>
+
 
       <button onclick="document.getElementById('login').style.display='block'" type="button" class="btn btn-outline-success" id="admin-button">Admin</button>
       <div id="login" class = "modal">
@@ -170,7 +226,6 @@
       <button type="button" name="button" class="btn btn-outline-success" id="history-button" onclick="historyButtonClicked()">See History</button>
       <br>
       <button type="button" name="button" class="btn btn-outline-success" id="manageUsers-button" onclick="manageUsersClicked()">Manage Users</button>
-
 
       <footer class="page-footer font-small ml-auto">
         <div class="footer-copyright ml-auto py-3">@2020 Pinewood Technology Club</div>
