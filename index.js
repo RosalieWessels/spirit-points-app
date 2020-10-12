@@ -97,7 +97,7 @@ function adminMode() {
     element[i].classList.remove("admin-mode-table-hidden");
   }
 
-  document.getElementById("grades").disabled = true;
+  document.getElementById("grades").disabled = false;
   document.getElementById("points").disabled = true;
 
   var adminButton = document.getElementById("admin-button");
@@ -190,6 +190,44 @@ function setUpFirebaseDatabase(){
 //ONLY HAD TO BE USED ONCE, DO NOT UNCOMMENT BECAUSE IT WILL RESET THE POINTS
 //setUpFirebaseDatabase(); //DO NOT UNCOMMENT PLEASE
 
+function createChart(seventhGradePoints, eightGradePoints, freshmanPoints, sophomorePoints, juniorPoints, seniorPoints) {
+    var graph = document.getElementById("chartContainer");
+    graph.style.height = "370px";
+    graph.style.width = "100%";
+
+    var chart = new CanvasJS.Chart("chartContainer", {
+    	animationEnabled: true,
+
+    	title:{
+
+    	},
+    	axisX:{
+    		interval: 1
+    	},
+    	axisY2:{
+    		interlacedColor: "rgba(1,77,101,.2)",
+    		gridColor: "rgba(1,77,101,.1)"
+
+    	},
+    	data: [{
+    		type: "bar",
+    		name: "companies",
+    		axisYType: "secondary",
+    		color: "#014D65",
+    		dataPoints: [
+    			{ y: seventhGradePoints, label: "7th Grade" },
+    			{ y: eightGradePoints, label: "8th Grade" },
+    			{ y: freshmanPoints, label: "9th Grade" },
+    			{ y: sophomorePoints, label: "10th Grade" },
+    			{ y: juniorPoints, label: "11th Grade" },
+    			{ y: seniorPoints, label: "12th Grade" },
+    		]
+    	}]
+    });
+    chart.render();
+
+}
+
 function getData(){
   var docRef = db.collection("points").doc("Freshman");
   var freshmanPoints = 0;
@@ -277,6 +315,7 @@ function getData(){
           seventhGradePoints = doc.data().points;
           console.log("7thGradePoints", seventhGradePoints);
           gotScore([seventhGradePoints, eightGradePoints, freshmanPoints, sophomorePoints, juniorPoints, seniorPoints]);
+
       } else {
           // doc.data() will be undefined in this case
           console.log("No such document!");
@@ -304,7 +343,7 @@ function gotScore(points) {
   console.log("all grades", all_grades);
   document.getElementById("grades").onclick = function() {sort("grades", all_grades, m_8_SP, m_7_SP, greatest, freshman_SP, sophomore_SP, junior_SP, senior_SP);};
   document.getElementById("points").onclick = function() {sort("points", all_grades, m_8_SP, m_7_SP, greatest, freshman_SP, sophomore_SP, junior_SP, senior_SP);};
-
+  document.getElementById("graph").onclick = function() {sort("graph", all_grades, m_8_SP, m_7_SP, greatest, freshman_SP, sophomore_SP, junior_SP, senior_SP);};
   crowning(all_grades, greatest);
 
   elementtext(all_grades);
@@ -312,6 +351,8 @@ function gotScore(points) {
   document.getElementById("m_2-points").textContent = m_8_SP[0];
   document.getElementById("m1").textContent = m_7_SP[1];
   document.getElementById("m2").textContent = m_8_SP[1];
+
+
 
 }
 
@@ -421,6 +462,22 @@ function sortFunction(a, b){
 //toggle button
 function sort(toggle, all_grades, m_8_SP, m_7_SP, greatest, freshman_SP, sophomore_SP, junior_SP, senior_SP){
   if (toggle=="points"){
+
+    var graph = document.getElementById("chartContainer");
+    graph.style.display = "none";
+
+    var highSchoolData = document.getElementById("high-school");
+    highSchoolData.style.display = "flex";
+
+    var highSchoolTitle = document.getElementById("high-school-text");
+    highSchoolTitle.style.display = "flex";
+
+    var middleSchoolData = document.getElementById("middle-school");
+    middleSchoolData.style.display = "flex";
+
+    var middleSchoolText = document.getElementById("middle-school-text");
+    middleSchoolText.style.display = "flex";
+
     all_grades.sort(sortFunction);
     if (m_8_SP[0]<=m_7_SP[0]){
       document.getElementById("m_1-points").textContent = m_8_SP[0];
@@ -429,12 +486,46 @@ function sort(toggle, all_grades, m_8_SP, m_7_SP, greatest, freshman_SP, sophomo
       document.getElementById("m2").textContent = m_7_SP[1];
     }
   }
-  else{
+  if (toggle=="grades"){
+
+    var graph = document.getElementById("chartContainer");
+    graph.style.display = "none";
+
+    var highSchoolData = document.getElementById("high-school");
+    highSchoolData.style.display = "flex";
+
+    var highSchoolTitle = document.getElementById("high-school-text");
+    highSchoolTitle.style.display = "flex";
+
+    var middleSchoolData = document.getElementById("middle-school");
+    middleSchoolData.style.display = "flex";
+
+    var middleSchoolText = document.getElementById("middle-school-text");
+    middleSchoolText.style.display = "flex";
+
     all_grades = [freshman_SP, sophomore_SP, junior_SP, senior_SP];
     document.getElementById("m_1-points").textContent = m_7_SP[0];
     document.getElementById("m_2-points").textContent = m_8_SP[0];
     document.getElementById("m1").textContent = m_7_SP[1];
     document.getElementById("m2").textContent = m_8_SP[1];
+  }
+  if (toggle=="graph"){
+    createChart(m_7_SP[0], m_8_SP[0], freshman_SP[0], sophomore_SP[0], junior_SP[0], senior_SP[0]);
+    var graph = document.getElementById("chartContainer");
+    graph.style.display = "block";
+    graph.style.height = "370px";
+
+    var highSchoolData = document.getElementById("high-school");
+    highSchoolData.style.display = "none";
+
+    var highSchoolTitle = document.getElementById("high-school-text");
+    highSchoolTitle.style.display = "none";
+
+    var middleSchoolData = document.getElementById("middle-school");
+    middleSchoolData.style.display = "none";
+
+    var middleSchoolText = document.getElementById("middle-school-text");
+    middleSchoolText.style.display = "none";
   }
   elementtext(all_grades);
   crowning(all_grades, greatest);
@@ -598,38 +689,4 @@ function historyButtonClicked() {
 
 function manageUsersClicked() {
   window.location.href = "manageUsers.html";
-}
-window.onload = function () {
-
-var chart = new CanvasJS.Chart("chartContainer", {
-	animationEnabled: true,
-
-	title:{
-		text:"Pinewood Corona Points Graph!"
-	},
-	axisX:{
-		interval: 1
-	},
-	axisY2:{
-		interlacedColor: "rgba(1,77,101,.2)",
-		gridColor: "rgba(1,77,101,.1)",
-		title: "Corona Points"
-	},
-	data: [{
-		type: "bar",
-		name: "companies",
-		axisYType: "secondary",
-		color: "#014D65",
-		dataPoints: [
-			{ y: 1, label: "7th Grade" },
-			{ y: 2, label: "8th Grade" },
-			{ y: 3, label: "9th Grade" },
-			{ y: 4, label: "10th Grade" },
-			{ y: 5, label: "11th Grade" },
-			{ y: 6, label: "12th Grade" },
-		]
-	}]
-});
-chart.render();
-
 }
