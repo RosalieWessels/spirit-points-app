@@ -14,7 +14,7 @@ firebase.analytics();
 db = firebase.firestore();
 
 function backButtonClicked() {
-  window.location.href = "index.html";
+  window.location.href = "points.html";
 }
 
 function getFacultyFavoritesFirebase() {

@@ -64,7 +64,7 @@ firebase.auth().onAuthStateChanged(function(user) {
 // });
 
 function backButtonClicked() {
-  window.location.href = "index.html";
+  window.location.href = "points.html";
 }
 
 function addNewEmailAdressToFirebase(email){
