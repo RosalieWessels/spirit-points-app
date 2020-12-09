@@ -13,7 +13,7 @@ firebase.initializeApp(firebaseConfig);
 firebase.analytics();
 db = firebase.firestore();
 var allusers = [];
-var masterUsers = ["23rwessels@pinewood.edu", "glemmon@pinewood.edu", "hmark@pinewood.edu", "jbruno@pinewood.edu"];
+var masterUsers = ["hmark@pinewood.edu", "jbruno@pinewood.edu", "etyson@pinewood.edu", "23rwessels@pinewood.edu"];
 
 var user = localStorage.getItem("name");
 console.log(user);
