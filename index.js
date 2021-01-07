@@ -626,12 +626,13 @@ function changePoints(gradeToAdd, operation) {
           console.log("Document data:", doc.data());
           points = doc.data().points;
           console.log("points", points);
+          console.log("pointsToAdd", pointsToAdd)
           var totalPoints = 0;
           if (operation == 1) {
-            totalPoints = Math.abs(parseInt(points)) + Math.abs(parseInt(pointsToAdd));
+            totalPoints = parseInt(points) + Math.abs(parseInt(pointsToAdd));
           }
           if (operation == 2) {
-            totalPoints = Math.abs(parseInt(points)) - Math.abs(parseInt(pointsToAdd));
+            totalPoints = parseInt(points) - Math.abs(parseInt(pointsToAdd));
           }
           console.log("totalpoints", totalPoints);
           var currentDate = new Date();
