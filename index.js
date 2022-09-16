@@ -691,3 +691,7 @@ function historyButtonClicked() {
 function manageUsersClicked() {
   window.location.href = "manageUsers.html";
 }
+
+function downloadApp() {
+  window.open("https://drive.google.com/file/d/1aPjTWynJ1DPYOeawhR9iu_GWp8qWe53d/view?usp=sharing", "_blank")
+}
